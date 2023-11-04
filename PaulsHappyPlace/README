@@ -1,0 +1,17 @@
+To run (on windows):
+
+```
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Done:
+1. Load images from urls
+2. basic pipeline for extraction, image selection and filtering
+
+TODO:
+1. Test color similarity function
+2. Improve "find dominant color" function
+3. Select images to 'extract' images from
+4. Speed up / parallelize / move to GPU? Currently sequential calls to pallete and extract are slow
+5. Integration with and caching with S3

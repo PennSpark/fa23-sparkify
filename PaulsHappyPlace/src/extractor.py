@@ -1,9 +1,11 @@
 import torch
 from torchvision import models, transforms
 from PIL import Image
+import requests
+from io import BytesIO
 
 
-def extract_objects_from_image(image_path, output_path):
+def extract_objects_from_image(image_path, output_path, isLocal=False):
     # Load the pre-trained model for segmentation
     model = models.segmentation.deeplabv3_resnet101(pretrained=True).eval()
 
@@ -18,8 +20,12 @@ def extract_objects_from_image(image_path, output_path):
             ),
         ]
     )
-
-    input_image = Image.open(image_path).convert("RGB")
+    if not isLocal:
+        response = requests.get(image_path)
+        image_data = BytesIO(response.content)
+        input_image = Image.open(image_data).convert("RGB")
+    else:
+        input_image = Image.open(image_path).convert("RGB")
     input_tensor = preprocess(input_image)
     input_batch = input_tensor.unsqueeze(0)
 
@@ -55,3 +61,7 @@ def extract_objects_from_image(image_path, output_path):
 
 # Test the function
 # extract_objects_from_image("nirvana.jpeg", "nirvana.png")
+extract_objects_from_image(
+    "https://hips.hearstapps.com/hmg-prod/images/cutest-dog-breed-bernese-64356a43dbcc5.jpg",
+    "url.png",
+)
