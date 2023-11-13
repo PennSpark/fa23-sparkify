@@ -60,6 +60,9 @@ def process_collage_images(image_urls: list, local=False):
         if image_data["url"] not in cropped_image_urls
     ]
 
+    for image_data in cropped_image_data:
+        image_data["url"] = cropped_image_urls[image_data["url"]]
+
     return {
         "cropped_image_data": cropped_image_data,
         "uncropped_image_data": uncropped_image_data,
@@ -70,3 +73,6 @@ def process_collage_images(image_urls: list, local=False):
 
 if __name__ == "__main__":
     red_images = glob.glob("..\\tests\\red\\*")
+
+    processed = process_collage_images(red_images, local=True)
+    pprint(processed)
