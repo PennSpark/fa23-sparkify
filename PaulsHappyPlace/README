@@ -15,3 +15,5 @@ TODO:
 3. Select images to 'extract' images from
 4. Speed up / parallelize / move to GPU? Currently sequential calls to pallete and extract are slow
 5. Integration with and caching with S3
+
+6. TODO: Finetune the color distance metric: currently massively outweighing the colors that are much further away
