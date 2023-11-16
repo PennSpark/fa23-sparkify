@@ -5,6 +5,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+<<<<<<< HEAD
 The main program is 
 ```
 from collage.py import process_collage_images
@@ -12,6 +13,8 @@ from collage.py import process_collage_images
 process_collage_images(image_urls, local=False)
 ```
 
+=======
+>>>>>>> main
 Done:
 1. Load images from urls
 2. basic pipeline for extraction, image selection and filtering
@@ -19,8 +22,12 @@ Done:
 TODO:
 4. Speed up / parallelize / move to GPU? Currently sequential calls to pallete and extract are slow
 5. Integration with and caching with S3
+<<<<<<< HEAD
 6. Ensure that the new URLs in collage get the correct urls
 
 
 Stretch
 8. Make image extractor add frayed edges
+=======
+6. Ensure that the new URLs in collage get the correcct urls
+>>>>>>> main
