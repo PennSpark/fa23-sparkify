@@ -3,3 +3,5 @@
 *.png
 venv
 __pycache__
+*.zip
+tests

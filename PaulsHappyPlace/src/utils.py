@@ -132,12 +132,6 @@ def display_images_with_scores_and_colors(
     plt.show()
 
 
-def get_cropped_name(image_path):
-    """
-    Returns the path to the cropped image (may be a URL)
-    """
-
-
 def get_cropped_name(image_path, base_folder):
     """
     Returns the path to the cropped image (may be a URL)
