@@ -266,7 +266,6 @@ class PaletteFilter:
         - The distance between the predominant color and the image's predominant color
         - The distance between the complimentary color and the image's predominant color
         """
-        # TODO: get the color of each image in parallel
         image_datas = []
         for i, image_url in enumerate(image_urls):
             (_, proportion_to_colors) = self.get_palette(image_url)

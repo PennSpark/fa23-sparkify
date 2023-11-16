@@ -1,6 +1,10 @@
 *.jpg
 *.jpeg
 *.png
+venv
+__pycache__
+*.zip
+tests
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
