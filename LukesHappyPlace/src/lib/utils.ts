@@ -1,14 +1,11 @@
 import type { Track, Album, Artist } from "./types";
 
+// TODO: make sure stored state actually is useful
 export function generateRandomString(length: number): string {
-	let text = '';
 	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  
-	for (let i = 0; i < length; i++) {
-	  text += possible.charAt(Math.floor(Math.random() * possible.length));
-	}
-	return text;
-  };
+	const values = crypto.getRandomValues(new Uint8Array(length));
+	return values.reduce((acc, x) => acc + possible[x % possible.length], "");
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getTrackFromObject(trackObject: any): Track {

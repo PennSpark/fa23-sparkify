@@ -47,7 +47,7 @@ async function getItem(endpoint: string, access_token: string) {
 	 * https://developer.spotify.com/documentation/web-api/concepts/api-calls
 	 */
 	if(response.status > 300) {
-		await console.log(response.statusText);
+		await console.log(response.status + " " + response.statusText + ": " + await response.text());
 	}
 
 	return response.json();
