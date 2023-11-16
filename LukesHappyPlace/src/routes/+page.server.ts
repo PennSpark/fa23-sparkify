@@ -1,5 +1,6 @@
 export async function load({ cookies, fetch }) {
     const access_token = cookies.get("access_token");
+    // TODO: deal with login + handle access_token expired
     
     if(!access_token) return { tracks: [], artists: [] };
 

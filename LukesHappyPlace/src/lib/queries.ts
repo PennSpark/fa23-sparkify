@@ -10,6 +10,13 @@ export async function getTopTracks(count: number, access_token: string): Promise
 
 	const response = await getItem(ENDPOINT, access_token);
 
+	console.log("RESPONE" + response);
+
+	if(response.error) {
+		console.log("there is an error" + response.error.message);
+		return tracks;
+	}
+
 	const len = Math.min(count, response.total);
 	for(let i = 0; i < len; ++i) {
 		tracks.push(getTrackFromObject(response.items[i]));
@@ -26,6 +33,9 @@ export async function getTopArtists(count: number, access_token: string): Promis
 	const artists: Artist[] = [];
 
 	const response = await getItem(ENDPOINT, access_token);
+	if(response.error) {
+		return artists;
+	}
 
 	const len = Math.min(count, response.total);
 	for(let i = 0; i < len; ++i) {
@@ -46,9 +56,9 @@ async function getItem(endpoint: string, access_token: string) {
 	/**
 	 * https://developer.spotify.com/documentation/web-api/concepts/api-calls
 	 */
-	if(response.status > 300) {
-		await console.log(response.status + " " + response.statusText + ": " + await response.text());
-	}
+	// if(response.status > 300) {
+	// 	await console.log(response.status + " " + response.statusText + ": " + await response.text());
+	// }
 
 	return response.json();
 }

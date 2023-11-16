@@ -1,4 +1,4 @@
-import { error, json } from "@sveltejs/kit";
+import { error, json, redirect } from "@sveltejs/kit";
 import { getTopArtists, getTopTracks } from "$lib/queries";
 
 export async function GET({ cookies }) {
@@ -6,8 +6,14 @@ export async function GET({ cookies }) {
 
 	if(!access_token) throw error(500, "No access token provided");
 
+	const tracks = await getTopTracks(5, access_token);
+	if(tracks.length === 0) throw redirect(302, "/auth/login");
+
+	const artists = await getTopArtists(5, access_token);
+	if(artists.length === 0) throw redirect(302, "/auth/login");
+
 	return json({
-		tracks: await getTopTracks(5, access_token),
-		artists: await getTopArtists(5, access_token)
+		tracks: tracks,
+		artists: artists,
 	});
 }
