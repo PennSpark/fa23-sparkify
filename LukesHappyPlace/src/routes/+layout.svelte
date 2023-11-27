@@ -1,18 +1,34 @@
 <script>
+	import { navigating } from '$app/stores';
+	import Loading from '$lib/components/Loading.svelte';
 	import '../app.scss';
+
+	let time = 100; // 10 seconds
+
+	setInterval(() => {
+		if(time > 0) {
+			if($navigating) {
+				time--;
+			}
+		}
+	}, 10)
 </script>
 
 <header>
-	<a href="/">Our Happy Place</a>
+	<a href="/">Sparkify</a>
 	<nav>
 		<a href="/">Home</a>
 		<a href="/about">About</a>
-		<a href="/contact">Contact</a>
+		<a target="_blank" rel="noopener noreferrer" href="https://pennspark.org/">Contact</a>
 	</nav>
 </header>
 
 <main>
-	<slot />
+	{#if $navigating}
+		<Loading time={time} />
+	{:else}
+		<slot />
+	{/if}
 </main>
 
 <style lang="scss">

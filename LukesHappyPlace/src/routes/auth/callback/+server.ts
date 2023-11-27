@@ -41,7 +41,7 @@ export async function GET({ url, cookies }) {
              sameSite: 'lax',
         });
 
-        throw redirect(302, "/");
+        throw redirect(302, "/collage");
     }
     else {
         // Handle the error case here if needed

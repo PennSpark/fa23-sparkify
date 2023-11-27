@@ -1,8 +1,5 @@
 <script lang="ts">
 	import Button from "$lib/components/Button.svelte";
-import type { Artist, Track } from "../lib/types";
-
-    export let data: { tracks: Track[], artists: Artist[] };
 </script>
 
 <div class="container">
@@ -14,7 +11,7 @@ import type { Artist, Track } from "../lib/types";
             <br />
             collage and share with friends.
         </p>
-        <Button href="/collage">
+        <Button href="/auth/login">
             Sync with 
             <img class="spotify" src="/external/spotify.png" height=22rem alt="spotify logo">
         </Button>
@@ -26,8 +23,6 @@ import type { Artist, Track } from "../lib/types";
         <img class="four" width=310 height=310 src="/home/4.png" alt="Example album cover 4" />
     </section>
 </div>
-
-
 
 <style lang="scss">
     .container {
@@ -47,6 +42,8 @@ import type { Artist, Track } from "../lib/types";
             margin-block: 6vh;
         }
         .spotify {
+            position: relative;
+            top: 0.4em;
         }
     }
     .right {
