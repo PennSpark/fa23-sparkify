@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from "$lib/components/Button.svelte";
+	import Link from "$lib/components/Link.svelte";
 </script>
 
 <div class="container">
@@ -11,10 +11,10 @@
             <br />
             collage and share with friends.
         </p>
-        <Button href="/auth/login">
+        <Link href="/auth/login">
             Sync with 
             <img class="spotify" src="/external/spotify.png" height=22rem alt="spotify logo">
-        </Button>
+        </Link>
     </section>
     <section class="right">
         <img class="one" width=351 height=355 src="/home/1.png" alt="Example album cover 1" />

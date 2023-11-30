@@ -1,16 +1,18 @@
 <script lang="ts">
-    export let href: string;
+	import { createEventDispatcher } from "svelte";
+
+    const dispatch = createEventDispatcher();
+	const click = () => dispatch("click");
 </script>
 
-<a
-    {href}
->
-    <slot />
-</a>
+<button on:click|preventDefault={click}>
+	<slot />
+</button>
 
 <style lang="scss">
-    a {
+    button {
         color: $black;
+        border: none;
         background-color: $green;
         font-weight: 600;
         text-decoration: none;
@@ -19,6 +21,7 @@
 
         &:hover {
 			filter: drop-shadow(3px 3px 3px black);
+            cursor: pointer;
 		}
     }
 </style>
