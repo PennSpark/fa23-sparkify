@@ -10,6 +10,5 @@ export async function load({ cookies, fetch }) {
     const data = await response.json();
 
     if(data.expired) throw redirect(302, "/auth/login");
-
     return await data;
 }
