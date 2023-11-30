@@ -1,11 +1,10 @@
 <script lang="ts">
     import output from "./output.json"; // change
 	import Button from "$lib/components/Button.svelte";
-	import type { Artist, Track } from "$lib/types";
-	import Link from "$lib/components/Link.svelte";
-	import { goto } from "$app/navigation";
 
-    export let data: { expired: boolean, tracks: Track[], artists: Artist[] };
+    let show: boolean = true;
+
+    export let data: { urls: string[] };
     
     let bgstyle = `background-color: rgb(
                 ${output.dominant_color[0]} 
@@ -24,10 +23,14 @@
         return a.rank - b.rank;
     })
 
-    let doodles: string[] = [];
-    let count = Math.round(Math.random() * 3) + 1;
-    for(let i = 0; i < count; ++i) {
-        doodles.push(`/doodles/${Math.round(Math.random() * 40)}.png`);
+    const getDoodles = () => {
+        let doodles: string[] = [];
+        let count = Math.round(Math.random() * 2) + 2;
+        for(let i = 0; i < count; ++i) {
+            doodles.push(`/doodles/${Math.round(Math.random() * 40)}.png`);
+        }
+
+        return doodles;
     }
 
     const getRandomDirection = () => Math.random() > 0.5 ? 1 : -1;
@@ -50,14 +53,13 @@
 	<title>Your Collage | Sparkify</title>
 </svelte:head>
 
-{#if data.tracks.length === 0 && data.artists.length === 0}
-    <Link href="/auth/login">
-        Login
-    </Link>
-{:else}
-    <h1>Here's your <b>Music Collage!</b></h1>
-    <div class="border">
-        <div id="collage" style={bgstyle}>
+<h1>Here's your <b>Music Collage!</b></h1>
+
+<!-- <img src={data.urls[0]} alt="matt cho THIS IS A TEST" /> -->
+
+<div class="border">
+    <div id="collage" style={bgstyle}>
+        {#if show}
             {#each cropped_imgs as img, index}
                 <img
                     src={img.url}
@@ -85,7 +87,7 @@
                     `}
                 />
             {/each}
-            {#each doodles as doodle}
+            {#each getDoodles() as doodle}
                 <img
                     src={doodle}
                     alt="doodle"
@@ -98,14 +100,19 @@
                     `}
                 />
             {/each}
-        </div>
+        {/if}
     </div>
-    <div id="buttons">
-        <Button on:click={() => goto("/auth/login")}>Regenerate</Button>
-        <span style="width: 24px;"></span>
-        <Button>Share</Button>
-    </div>
-{/if}
+</div>
+<div id="buttons">
+    <Button on:click={() => {
+        show = false;
+        setTimeout(() => {
+            show = true;
+        }, 10);
+     }}>Regenerate</Button>
+    <span style="width: 24px;"></span>
+    <Button>Share</Button>
+</div>
 
 <style lang="scss">
     h1 {

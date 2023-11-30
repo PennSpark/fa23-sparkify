@@ -1,18 +1,7 @@
-
-
 import AWS from 'aws-sdk';
 import type { AWSError } from 'aws-sdk'
 import type { InvocationResponse } from 'aws-sdk/clients/lambda';
 const BUCKET_NAME = 'fa23-sparkify-bucket';
-
-
-AWS.config.update({
-    accessKeyId: 'AKIA4FGSHVMSEXPOF6VA',
-    secretAccessKey: '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',
-    region: 'us-east-1',
-});
-
-
 
 export async function callLambda(urlList : string[]) { 
     //urlList is string[] of urls but i couldn't figure out how to fix a type bug
@@ -41,6 +30,12 @@ export async function callLambda(urlList : string[]) {
 
 
 export async function callS3(key : string) { 
+
+    AWS.config.update({
+        accessKeyId: 'AKIA4FGSHVMSEXPOF6VA',
+        secretAccessKey: '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',
+        region: 'us-east-1',
+    });
     //key is a string holding the name of the album cover stored in S3
     const s3 = new AWS.S3();
     //console.log(req.body);
@@ -50,13 +45,13 @@ export async function callS3(key : string) {
         Expires: 3600 
     };
 
-    s3.getSignedUrl('getObject', params, (err : Error, url : string) => {
-        if (err) {
-            console.error(err);
-        } else {
-            //TODO: Save signedS3Url to svelte state
-            console.log(url);
-        }
+    return new Promise((resolve, reject) => {
+        s3.getSignedUrl('getObject', params, (err : Error, url : string) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(url);
+            }
+        });
     });
 }
-
