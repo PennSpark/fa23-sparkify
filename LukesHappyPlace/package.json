@@ -29,5 +29,9 @@
 		"typescript": "^5.2.2",
 		"vite": "^4.5.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"aws-sdk": "^2.1502.0",
+		"axios": "^1.6.2"
+	}
 }
