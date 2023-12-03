@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte";
+	import { createEventDispatcher } from 'svelte';
 
-    const dispatch = createEventDispatcher();
-	const click = () => dispatch("click");
+	const dispatch = createEventDispatcher();
+	const click = () => dispatch('click');
 </script>
 
 <button on:click|preventDefault={click}>
@@ -10,18 +10,18 @@
 </button>
 
 <style lang="scss">
-    button {
-        color: $black;
-        border: none;
-        background-color: $green;
-        font-weight: 600;
-        text-decoration: none;
-        padding: 12px 25px;
-        border-radius: 5px;
+	button {
+		color: $black;
+		border: none;
+		background-color: $green;
+		font-weight: 600;
+		text-decoration: none;
+		padding: 12px 25px;
+		border-radius: 5px;
 
-        &:hover {
+		&:hover {
 			filter: drop-shadow(3px 3px 3px black);
-            cursor: pointer;
+			cursor: pointer;
 		}
-    }
+	}
 </style>

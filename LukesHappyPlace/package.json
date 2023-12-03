@@ -33,7 +33,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"aws-sdk": "^2.1510.0",
-		"axios": "^1.6.2"
+		"aws-sdk": "^2.1510.0"
 	}
 }

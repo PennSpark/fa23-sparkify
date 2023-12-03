@@ -6,12 +6,12 @@
 	let time = 3000; // 10 seconds
 
 	setInterval(() => {
-		if(time > 0) {
-			if($navigating) {
+		if (time > 0) {
+			if ($navigating) {
 				time--;
 			}
 		}
-	}, 10)
+	}, 10);
 </script>
 
 <header>
@@ -25,7 +25,7 @@
 
 <main>
 	{#if $navigating}
-		<Loading time={time} />
+		<Loading {time} />
 	{:else}
 		<slot />
 	{/if}
