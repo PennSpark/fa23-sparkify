@@ -10,6 +10,13 @@
 	and tracks on Spotify.
 </h3>
 
+<p>
+	Here are some of the decisions the design team made in order to most effectively visualize one’s music taste.
+	Album selection: We opted to select albums with identifiable subjects, as they would be most notable when cropped and placed on the collage.
+	Collage Background:  We decided to select the most common light/dark color represented across the albums as the main background color. Additionally, accent colors were chosen by finding the contrasting color of the main background color.
+	Album placement: We chose to arrange the albums by listening frequency. Those albums with the most listens are placed in the foreground and center of the collage. As the frequency of listens decreases, the albums move radially outward and get placed further into the background of the collage. Additionally, the uncropped images are placed furthest in the background.
+</p>
+
 <ul>
 	<li>Nwai Alfa</li>
 	<li>Matthew Cho</li>
