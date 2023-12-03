@@ -18,3 +18,8 @@ export type Artist = {
 	url: string;
 	imgs: string[];
 }
+
+export type Image = {
+	url: string;
+	rank: number;
+}

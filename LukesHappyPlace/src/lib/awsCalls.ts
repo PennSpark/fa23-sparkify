@@ -29,7 +29,7 @@ export async function callLambda(urlList : string[]) {
                 if (err) {
                     reject(err)
                 } else {
-                    resolve(data)
+                    resolve(data);
                 }
             });
         });

@@ -1,4 +1,6 @@
 import { callLambda, callS3 } from "$lib/awsCalls";
+import { json } from "@sveltejs/kit";
+import type { Image } from "$lib/types";
 
 export async function load({ cookies, fetch }) {
     const access_token = cookies.get("access_token");
@@ -13,20 +15,36 @@ export async function load({ cookies, fetch }) {
     const urls: string[] = tracks.map((track: any) => track.album.img);
     
     // send to S3 for processing
-    const processed: { images: string[] } = await callLambda(urls);
-    console.log(processed)
+    const { Payload } = await await callLambda(urls);
+    const result = await JSON.parse(JSON.parse(Buffer.from(Payload).toString()).body); // bruh
 
-    // call S3 to retrieve processed images
-    const images = [];
-    for(const processed_img in processed.images) {
-        images.push(await callS3(processed_img));
+    // call S3 to retrieve images
+    const cropped_images: Image[] = [];
+    console.log(result.urlsPutIntoS3.cropped_image_data.length);
+    for(let i = 0; i < result.urlsPutIntoS3.cropped_image_data.length; i++) {
+        cropped_images.push({
+            url: await callS3(result.urlsPutIntoS3.cropped_image_data[i].url.substr(1)),
+            rank: result.urlsPutIntoS3.cropped_image_data[i].rank,
+        });
     }
-
-    // test
-    images.push(await callS3("ab67616d0000b273cdb645498cd3d8a2db4d05e1.png"));
+    const uncropped_images: Image[] = [];
+    for(let i = 0; i < result.urlsPutIntoS3.uncropped_image_data.length; i++) {
+        uncropped_images.push({
+            url: result.urlsPutIntoS3.uncropped_image_data[i].url,
+            rank: result.urlsPutIntoS3.uncropped_image_data[i].rank,
+        });
+    }
+    // descending order
+    cropped_images.sort((a,b) => {
+        return a.rank - b.rank;
+    });
+    uncropped_images.sort((a, b) => {
+        return a.rank - b.rank;
+    })
 
     // return image urls
     return {
-        images: images,
+        cropped_images: cropped_images,
+        uncropped_images: uncropped_images,
     }
 }

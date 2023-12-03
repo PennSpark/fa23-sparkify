@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Button from "$lib/components/Button.svelte";
+    import type { Image } from "$lib/types";
 
     let show: boolean = true;
 
-    export let data: { images: string[] };
-
+    export let data: { cropped_images: Image[], uncropped_images: Image[] };
     console.log(data);
     
     // let bgstyle = `background-color: rgb(
@@ -14,15 +14,7 @@
     //         );`;
    let bgstyle = `background-color: #1E1F27`;
 
-    // // descending order TODO: CHANGE THIS TO a.rank - b.rank
-    // const cropped_imgs = output.cropped_image_data.sort((a,b) => {
-    //     return b.rank - a.rank;
-    // });
 
-    // // descending order
-    // const uncropped_imgs = output.uncropped_image_data.sort((a, b) => {
-    //     return a.rank - b.rank;
-    // })
 
     const getDoodles = () => {
         let doodles: string[] = [];
@@ -59,9 +51,9 @@
 <div class="border">
     <div id="collage" style={bgstyle}>
         {#if show}
-            {#each data.images as img, index}
+            {#each data.cropped_images as img, index}
                 <img
-                    src={img}
+                    src={img.url}
                     alt="cropped collage album cover"
                     width={getCroppedWidth(index)}
                     height={getCroppedHeight(index)}
@@ -73,9 +65,9 @@
                     `}
                 />
             {/each}
-            {#each data.images as img, index}
+            {#each data.uncropped_images as img, index}
                 <img
-                    src={img}
+                    src={img.url}
                     alt="cropped collage album cover"
                     width={getUncroppedWidth(index)}
                     height={getUncroppedHeight(index)}

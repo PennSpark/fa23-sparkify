@@ -8,20 +8,17 @@ export async function GET({ cookies }) {
 
 	if(!access_token) throw error(500, "No access token provided");
 
-	const tracks = await getTopTracks(5, access_token);
-	const artists = await getTopArtists(5, access_token);
+	const tracks = await getTopTracks(15, access_token);
 
-	if(tracks.length === 0 || artists.length === 0) {
+	if(tracks.length === 0) {
 		expired = true;
 	}
 	
 	return json({
 		expired: expired,
 		tracks: tracks,
-		artists: artists,
 	});
 }
-
 
 async function getTopTracks(count: number, access_token: string): Promise<Track[]>  {
 	/**
