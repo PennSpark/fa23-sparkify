@@ -3,15 +3,15 @@
 	import Loading from '$lib/components/Loading.svelte';
 	import '../app.scss';
 
-	let time = 100; // 10 seconds
+	let time = 3000; // 10 seconds
 
 	setInterval(() => {
-		if(time > 0) {
-			if($navigating) {
+		if (time > 0) {
+			if ($navigating) {
 				time--;
 			}
 		}
-	}, 10)
+	}, 10);
 </script>
 
 <header>
@@ -25,7 +25,7 @@
 
 <main>
 	{#if $navigating}
-		<Loading time={time} />
+		<Loading {time} />
 	{:else}
 		<slot />
 	{/if}
