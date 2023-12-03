@@ -13,14 +13,17 @@ export async function load({ cookies, fetch }) {
     const urls: string[] = tracks.map((track: any) => track.album.img);
     
     // send to S3 for processing
-    await callLambda(urls);
+    const processed: { images: string[] } = await callLambda(urls);
+    console.log(processed)
 
     // call S3 to retrieve processed images
     const images = [];
-    for(const url in urls) {
-        const arr = url.split("/");
-        images.push(await callS3(arr[arr.length - 1]));
+    for(const processed_img in processed.images) {
+        images.push(await callS3(processed_img));
     }
+
+    // test
+    images.push(await callS3("ab67616d0000b273cdb645498cd3d8a2db4d05e1.png"));
 
     // return image urls
     return {

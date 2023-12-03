@@ -1,11 +1,12 @@
+import { AWS_ACCESS_KEY_ID, AWS_LAMBDA_PASSWORD, AWS_SECRET_ACCESS_KEY } from '$env/static/private';
 import AWS from 'aws-sdk';
 import type { AWSError } from 'aws-sdk'
 import type { InvocationResponse } from 'aws-sdk/clients/lambda';
 const BUCKET_NAME = 'fa23-sparkify-bucket';
 
 AWS.config.update({
-    accessKeyId: 'AKIA4FGSHVMSEXPOF6VA',
-    secretAccessKey: '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',
+    accessKeyId: AWS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SECRET_ACCESS_KEY,
     region: 'us-east-1',
 });
 
@@ -17,7 +18,7 @@ export async function callLambda(urlList : string[]) {
             FunctionName: 'finalLambda',
             Payload: JSON.stringify({
                 "body": {
-                    "passcode": "lukeTong<3cuteboy",
+                    "passcode": AWS_LAMBDA_PASSWORD,
                     "urls": urlList,
                 }
             }),
