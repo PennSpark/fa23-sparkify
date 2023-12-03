@@ -1,27 +1,28 @@
 <script lang="ts">
-    import output from "./output.json"; // change
 	import Button from "$lib/components/Button.svelte";
 
     let show: boolean = true;
 
-    export let data: { urls: string[] };
+    export let data: { images: string[] };
+
+    console.log(data);
     
-    let bgstyle = `background-color: rgb(
-                ${output.dominant_color[0]} 
-                ${output.dominant_color[1]} 
-                ${output.dominant_color[2]}
-            );`;
-//    let bgstyle = `background-color: #1E1F27`;
+    // let bgstyle = `background-color: rgb(
+    //             ${output.dominant_color[0]} 
+    //             ${output.dominant_color[1]} 
+    //             ${output.dominant_color[2]}
+    //         );`;
+   let bgstyle = `background-color: #1E1F27`;
 
-    // descending order TODO: CHANGE THIS TO a.rank - b.rank
-    const cropped_imgs = output.cropped_image_data.sort((a,b) => {
-        return b.rank - a.rank;
-    });
+    // // descending order TODO: CHANGE THIS TO a.rank - b.rank
+    // const cropped_imgs = output.cropped_image_data.sort((a,b) => {
+    //     return b.rank - a.rank;
+    // });
 
-    // descending order
-    const uncropped_imgs = output.uncropped_image_data.sort((a, b) => {
-        return a.rank - b.rank;
-    })
+    // // descending order
+    // const uncropped_imgs = output.uncropped_image_data.sort((a, b) => {
+    //     return a.rank - b.rank;
+    // })
 
     const getDoodles = () => {
         let doodles: string[] = [];
@@ -55,14 +56,12 @@
 
 <h1>Here's your <b>Music Collage!</b></h1>
 
-<!-- <img src={data.urls[0]} alt="matt cho THIS IS A TEST" /> -->
-
 <div class="border">
     <div id="collage" style={bgstyle}>
         {#if show}
-            {#each cropped_imgs as img, index}
+            {#each data.images as img, index}
                 <img
-                    src={img.url}
+                    src={img}
                     alt="cropped collage album cover"
                     width={getCroppedWidth(index)}
                     height={getCroppedHeight(index)}
@@ -74,9 +73,9 @@
                     `}
                 />
             {/each}
-            {#each uncropped_imgs as img, index}
+            {#each data.images as img, index}
                 <img
-                    src={img.url}
+                    src={img}
                     alt="cropped collage album cover"
                     width={getUncroppedWidth(index)}
                     height={getUncroppedHeight(index)}
