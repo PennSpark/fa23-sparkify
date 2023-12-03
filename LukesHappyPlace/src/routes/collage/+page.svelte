@@ -4,17 +4,14 @@
 
     let show: boolean = true;
 
-    export let data: { cropped_images: Image[], uncropped_images: Image[] };
+    export let data: { cropped_images: Image[], uncropped_images: Image[], palette: number[] };
     console.log(data);
     
-    // let bgstyle = `background-color: rgb(
-    //             ${output.dominant_color[0]} 
-    //             ${output.dominant_color[1]} 
-    //             ${output.dominant_color[2]}
-    //         );`;
-   let bgstyle = `background-color: #1E1F27`;
-
-
+    let bgstyle = `background-color: rgb(
+                ${data.palette[0]} 
+                ${data.palette[1]} 
+                ${data.palette[2]}
+            );`;
 
     const getDoodles = () => {
         let doodles: string[] = [];

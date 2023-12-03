@@ -1,5 +1,4 @@
 import { callLambda, callS3 } from "$lib/awsCalls";
-import { json } from "@sveltejs/kit";
 import type { Image } from "$lib/types";
 
 export async function load({ cookies, fetch }) {
@@ -15,7 +14,7 @@ export async function load({ cookies, fetch }) {
     const urls: string[] = tracks.map((track: any) => track.album.img);
     
     // send to S3 for processing
-    const { Payload } = await await callLambda(urls);
+    const { Payload } = await callLambda(urls);
     const result = await JSON.parse(JSON.parse(Buffer.from(Payload).toString()).body); // bruh
 
     // call S3 to retrieve images
@@ -46,5 +45,6 @@ export async function load({ cookies, fetch }) {
     return {
         cropped_images: cropped_images,
         uncropped_images: uncropped_images,
+        palette: result.urlsPutIntoS3.dominant_color,
     }
 }

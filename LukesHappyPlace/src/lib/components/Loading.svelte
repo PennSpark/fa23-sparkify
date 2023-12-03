@@ -10,7 +10,7 @@
         Please hold tight!
     </p>
     <div class="progress">
-        <div class="line" style={`width: ${100-time}%`}></div>
+        <div class="line" style={`width: ${100 * (3000-time)/3000}%`}></div>
     </div>
 </div>
 
