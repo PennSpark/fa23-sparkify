@@ -5,7 +5,6 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-<<<<<<< HEAD
 The main program is 
 ```
 from collage.py import process_collage_images
@@ -13,8 +12,6 @@ from collage.py import process_collage_images
 process_collage_images(image_urls, local=False)
 ```
 
-=======
->>>>>>> main
 Done:
 1. Load images from urls
 2. basic pipeline for extraction, image selection and filtering
