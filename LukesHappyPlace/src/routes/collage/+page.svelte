@@ -5,7 +5,6 @@
 	let show: boolean = true;
 
 	export let data: { cropped_images: Image[]; uncropped_images: Image[]; palette: number[] };
-	console.log(data);
 
 	let bgstyle = `background-color: rgb(
                 ${data.palette[0]} 
@@ -24,13 +23,14 @@
 	};
 
 	const getRandomDirection = () => (Math.random() > 0.5 ? 1 : -1);
+	const getZIndexDiff = (index: number) => Math.round((index * 10) + (Math.random() * 20));
 
 	const getCroppedWidth = (index: number) => 110 * Math.log(index + 10);
 	const getCroppedHeight = (index: number) => 110 * Math.log(index + 10);
 	const getCroppedCenter = (index: number) => 200 - getCroppedWidth(index) / 2;
-	const getCroppedTilt = (index: number) => (index % 2 == 0 ? 1 : -1) * (index * 10);
-	const getCroppedXDisplacement = (index: number) => (index % 2 == 0 ? 1 : -1) * (index * 40);
-	const getCroppedYDisplacement = (index: number) => (index % 2 == 0 ? 2 : -1) * (index * 15);
+	const getCroppedTilt = (index: number) => (index % 2 == 0 ? 1 : -1) * (index * Math.random() * 15);
+	const getCroppedXDisplacement = (index: number) => (index % 2 == 0 ? 1 : -1) * ((index+1) * Math.random() * 50);
+	const getCroppedYDisplacement = (index: number) => (index % 2 == 0 ? 2 : -1) * ((index+1) * Math.random() * 20);
 
 	const getUncroppedWidth = (index: number) => 80 * Math.log(index + 5);
 	const getUncroppedHeight = (index: number) => 80 * Math.log(index + 5);
@@ -58,7 +58,7 @@
                         top: ${getCroppedCenter(index) + getCroppedYDisplacement(index)}px;
                         left: ${getCroppedCenter(index) + getCroppedXDisplacement(index)}px;
                         transform: rotate(${getCroppedTilt(index)}deg);
-                        z-index: ${1000 - index};
+                        z-index: ${1000 - getZIndexDiff(index)};
                     `}
 				/>
 			{/each}
@@ -71,7 +71,7 @@
 					style={`
                         top: ${getUncroppedCenter(index) + getUncroppedYDisplacement()}px;
                         left: ${getUncroppedCenter(index) + getUncroppedXDisplacement()}px;
-                        z-index: ${100 - index};
+                        z-index: ${500 - getZIndexDiff(index)};
                     `}
 				/>
 			{/each}

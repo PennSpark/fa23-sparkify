@@ -3,12 +3,14 @@ import type { Track } from '$lib/types';
 import { getTrackFromObject } from '$lib/utils';
 
 export async function GET({ cookies }) {
+	const limit = 50;
+
 	let expired = false;
 	const access_token = cookies.get('access_token')!;
 
 	if (!access_token) throw error(500, 'No access token provided');
 
-	const tracks = await getTopTracks(15, access_token);
+	const tracks = await getTopTracks(limit, access_token);
 
 	if (tracks.length === 0) {
 		expired = true;
@@ -20,14 +22,14 @@ export async function GET({ cookies }) {
 	});
 }
 
-async function getTopTracks(count: number, access_token: string): Promise<Track[]> {
+async function getTopTracks(limit: number, access_token: string): Promise<Track[]> {
 	/**
 	 * https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
 	 */
 	const ENDPOINT = 'https://api.spotify.com/v1/me/top/tracks';
 	const tracks: Track[] = [];
 
-	const response = await getItem(ENDPOINT, access_token);
+	const response = await getItem(ENDPOINT, access_token, limit);
 	if (response.error) {
 		if (response.error.message === 'The access token expired') {
 			return tracks;
@@ -35,7 +37,7 @@ async function getTopTracks(count: number, access_token: string): Promise<Track[
 		throw error(500, response.error.message);
 	}
 
-	const len = Math.min(count, response.total);
+	const len = Math.min(limit, response.total);
 	for (let i = 0; i < len; ++i) {
 		tracks.push(getTrackFromObject(response.items[i]));
 	}
@@ -66,7 +68,8 @@ async function getTopTracks(count: number, access_token: string): Promise<Track[
 // 	return artists;
 // }
 
-async function getItem(endpoint: string, access_token: string) {
+async function getItem(endpoint: string, access_token: string, limit: number) {
+	endpoint += "?limit=" + limit;
 	const response = await fetch(endpoint, {
 		headers: {
 			Authorization: `Bearer ${access_token}`
