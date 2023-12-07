@@ -16,7 +16,7 @@ Steps Taken to Deploy Lambda Function:
 5. Tested Lambda function using Test Events via AWS console
 6. Tested from deployed webapp
 
-Note: had to download AI models locally and include them in the Dockerfile. This does 2 things. One, it makes our cold start case faster because we don't have to download the model from the Internet. Two, AWS Lambda generates a read-only environment, unless you create a /tmp folder that can be written to (but we didn't think it was worth the time to force yourself to write your AI models to a /tmp folder and do all that when you can just include it in the container)
+Note: had to download AI models locally and include them in the Dockerfile. This does 2 things. One, it makes our cold start case faster because we don't have to download the model from the Internet. Two, AWS Lambda generates a read-only environment, unless you create a /tmp folder that can be written to (but we didn't think it was worth the time to figure out how to get the Lambda function to write the AI models to a /tmp folder and do all that when we could just include it in the container)
 
 Steps Taken to Set Up S3 Bucket:
 1. Create S3 Bucket via console
