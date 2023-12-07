@@ -35,10 +35,11 @@ export async function GET({ url, cookies }) {
 			httpOnly: true,
 			secure: true,
 			path: '/',
-			sameSite: 'lax'
+			sameSite: 'lax',
+			expires: new Date(Date.now() + body.expires_in * 1000)
 		});
 
-		throw redirect(302, '/collage');
+		throw redirect(302, '/?auth=success');
 	} else {
 		// Handle the error case here if needed
 		await console.log(response.status + ' ' + response.statusText + ': ' + (await response.text()));

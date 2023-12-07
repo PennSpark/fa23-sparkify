@@ -3,7 +3,7 @@
 </script>
 
 <div class="loading">
-	<h2>We got your data!</h2>
+	<h2>We got your data! 🌚</h2>
 	<p>
 		It takes a while to generate the collage...
 		<br />
