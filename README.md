@@ -1,6 +1,8 @@
 # fa23-sparkify
 our happy place
 
+by penn spark!
+
 ## Deployment Steps
 
 Used the following AWS link as reference: https://docs.aws.amazon.com/lambda/latest/dg/python-image.html#python-image-instructions

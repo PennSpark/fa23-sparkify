@@ -1,5 +1,8 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import Link from '$lib/components/Link.svelte';
+
+	let auth = $page.url.searchParams.get("auth") === "success";
 </script>
 
 <div class="container">
@@ -11,10 +14,16 @@
 			<br />
 			collage and share with friends.
 		</p>
-		<Link href="/auth/login">
-			Sync with
-			<img class="spotify" src="/external/spotify.png" height="22rem" alt="spotify logo" />
-		</Link>
+		{#if auth}
+			<Link href="/collage">
+				Generate Collage
+			</Link>
+		{:else}
+			<Link href="/auth/login">
+				Sync with
+				<img class="spotify" src="/external/spotify.png" height="22rem" alt="spotify logo" />
+			</Link>
+		{/if}
 	</section>
 	<section class="right">
 		<img class="one" width="351" height="355" src="/home/1.png" alt="Example album cover 1" />

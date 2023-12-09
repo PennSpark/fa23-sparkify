@@ -12,9 +12,17 @@ export async function load({ cookies, fetch }) {
 	const { tracks } = await response.json();
 
 	const urls: string[] = tracks.map((track: { album: { img: string } }) => track.album.img);
+	// remove duplicates from urls
+	const unique_urls: string[] = [];
+	for (let i = 0; i < urls.length; i++) {
+		if (!unique_urls.includes(urls[i])) {
+			unique_urls.push(urls[i]);
+		}
+		if(unique_urls.length === 30) break;
+	}
 
 	// send to S3 for processing
-	const { Payload } = await callLambda(urls);
+	const { Payload } = await callLambda(unique_urls);
 	const result = await JSON.parse(JSON.parse(Buffer.from(Payload).toString()).body); // bruh
 
 	// call S3 to retrieve images
