@@ -1,9 +1,6 @@
 # fa23-sparkify
-our happy place
-
-<<<<<<< HEAD
 by penn spark!
-=======
+
 ## Deployment Steps
 
 Used the following AWS link as reference: https://docs.aws.amazon.com/lambda/latest/dg/python-image.html#python-image-instructions
@@ -28,4 +25,3 @@ Steps Taken to Set Up S3 Bucket:
 
 Steps Taken to Set Up IAM Permissions:
 1. Create IAM user for Lambda function and give it permissions so that it can access S3, and perform all necessary Lambda function actions
->>>>>>> bd61d3f (Create README.md)
