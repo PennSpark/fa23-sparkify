@@ -17,8 +17,8 @@ export async function GET({ cookies }) {
 	});
 
 	if(cookies.get("access_token") != undefined) {
-		throw redirect(302, '/collage');
+		redirect(302, '/collage');
 	} else {
-		throw redirect(302, 'https://accounts.spotify.com/authorize/?' + params.toString());
+		redirect(302, 'https://accounts.spotify.com/authorize/?' + params.toString());
 	}
 }

@@ -39,12 +39,12 @@ export async function GET({ url, cookies }) {
 			expires: new Date(Date.now() + body.expires_in * 1000)
 		});
 
-		throw redirect(302, '/?auth=success');
+		redirect(302, '/?auth=success');
 	} else {
 		// Handle the error case here if needed
 		await console.log(response.status + ' ' + response.statusText + ': ' + (await response.text()));
-		throw error(500, {
-			message: 'Internal Server Error'
-		});
+		error(500, {
+        			message: 'Internal Server Error'
+        		});
 	}
 }

@@ -8,7 +8,7 @@ export async function GET({ cookies }) {
 	let expired = false;
 	const access_token = cookies.get('access_token')!;
 
-	if (!access_token) throw error(500, 'No access token provided');
+	if (!access_token) error(500, 'No access token provided');
 
 	const tracks = await getTopTracks(limit, access_token);
 
@@ -34,7 +34,7 @@ async function getTopTracks(limit: number, access_token: string): Promise<Track[
 		if (response.error.message === 'The access token expired') {
 			return tracks;
 		}
-		throw error(500, response.error.message);
+		error(500, response.error.message);
 	}
 
 	const len = Math.min(limit, response.total);
